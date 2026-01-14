@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="ru" data-lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Агент по Хаджу и Умре | Hajj & Umrah Agent</title>
+  <style>
+    :root {
+      --color-bg: #ffffff;
+      --color-text: #1a1a1a;
+      --color-primary: #006400;     /* тёмно-зелёный */
+      --color-primary-light: #228B22;
+      --color-accent: #f0fff0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ─── Header ─── */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+      z-index: 1000;
+      padding: 14px 0;
+    }
+
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .logo {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--color-primary);
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 28px;
+    }
+
+    nav a {
+      color: var(--color-text);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      color: var(--color-primary);
+    }
+
+    .lang-switch {
+      display: flex;
+      gap: 8px;
+      font-weight: 500;
+    }
+
+    .lang-switch button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font: inherit;
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
+    .lang-switch button.active {
+      background: var(--color-primary);
+      color: white;
+    }
+
+    .right-part {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .email-link {
+      color: var(--color-primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    /* ─── Hero ─── */
+    #hero {
+      padding: 140px 0 100px;
+      text-align: center;
+      background: var(--color-accent);
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 1.2rem;
+      color: var(--color-primary);
+    }
+
+    .lead {
+      font-size: 1.28rem;
+      max-width: 720px;
+      margin: 0 auto 2.2rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 32px;
+      background: var(--color-primary);
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: background 0.25s;
+    }
+
+    .btn:hover {
+      background: var(--color-primary-light);
+    }
+
+    /* ─── Sections ─── */
+    section {
+      padding: 90px 0;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 2.4rem;
+      margin-bottom: 2.5rem;
+      color: var(--color-primary);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 28px;
+    }
+
+    .card {
+      background: #f8fff8;
+      border: 1px solid #d0e8d0;
+      border-radius: 10px;
+      padding: 32px 28px;
+      text-align: center;
+      transition: all 0.22s;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 32px rgba(0,100,0,0.12);
+      border-color: var(--color-primary-light);
+    }
+
+    .card h3 {
+      font-size: 1.55rem;
+      margin-bottom: 1rem;
+      color: var(--color-primary);
+    }
+
+    .card .city {
+      font-size: 1.05rem;
+      color: #555;
+      margin-bottom: 0.6rem;
+    }
+
+    .card .price {
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin: 1.2rem 0;
+    }
+
+    /* Form */
+    #form-section {
+      background: #f8fff8;
+    }
+
+    form {
+      max-width: 620px;
+      margin: 0 auto;
+      display: grid;
+      gap: 18px;
+    }
+
+    input, button {
+      padding: 14px 18px;
+      font-size: 1.05rem;
+      border: 1px solid #c0d8c0;
+      border-radius: 6px;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(0,100,0,0.12);
+    }
+
+    .agreement {
+      font-size: 0.95rem;
+      color: #555;
+      text-align: center;
+    }
+
+    .success-message {
+      display: none;
+      text-align: center;
+      font-size: 1.4rem;
+      color: var(--color-primary);
+      padding: 60px 20px;
+      background: #e8ffe8;
+      border-radius: 10px;
+      margin: 40px auto;
+      max-width: 620px;
+    }
+
+    /* Modal */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      padding: 20px;
+    }
+
+    .modal-content {
+      background: white;
+      max-width: 720px;
+      max-height: 88vh;
+      overflow-y: auto;
+      border-radius: 12px;
+      padding: 32px;
+    }
+
+    .modal h2 {
+      margin-bottom: 1.4rem;
+      text-align: left;
+    }
+
+    .close {
+      float: right;
+      font-size: 2rem;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    /* responsive */
+    @media (max-width: 768px) {
+      h1 { font-size: 2.3rem; }
+      h2 { font-size: 2rem; }
+      nav ul { gap: 16px; font-size: 0.95rem; }
+      .header-inner { flex-direction: column; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <div class="header-inner">
+      <div class="logo" data-key="logo">Агент по Хаджу и Умре</div>
+
+      <nav>
+        <ul>
+          <li><a href="#hajj"   data-key="menu-hajj">Совершить Хадж</a></li>
+          <li><a href="#umrah"  data-key="menu-umrah">Совершить Умру</a></li>
+          <li><a href="#" id="open-offer" data-key="menu-offer">Публичная оферта</a></li>
+        </ul>
+      </nav>
+
+      <div class="right-part">
+        <a href="mailto:umraagent@gmail.com" class="email-link">umraagent@gmail.com</a>
+        <div class="lang-switch">
+          <button data-lang="ru" class="active">RU</button>
+          <button data-lang="en">ENG</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- Hero -->
+  <section id="hero">
+    <h1 data-key="hero-title">Поможем с организацией поездки для совершения Хаджа или Умры</h1>
+    <p class="lead" data-key="hero-text">
+      Оформите заявку уже сейчас, и мы поможем спланировать вашу поездку на оптимальных условиях с учетом ваших возможностей.
+    </p>
+    <a href="#hajj" class="btn" data-key="hero-cta">Выбрать тур</a>
+  </section>
+
+  <!-- Хадж -->
+  <section id="hajj">
+    <h2 data-key="section-hajj">Хадж</h2>
+    <div class="cards">
+      <div class="card">
+        <h3 data-key="hajj-standard">Стандарт</h3>
+        <div class="city" data-key="city">Город: Москва</div>
+        <div>2025 / 2026</div>
+        <div class="price" data-key="hajj-standard-price">ОТ 50 000 ₽</div>
+        <a href="#form-section" class="btn" data-key="btn-submit">Оставить заявку</a>
+      </div>
+      <div class="card">
+        <h3 data-key="hajj-plus">Стандарт Плюс</h3>
+        <div class="city" data-key="city">Город: Москва</div>
+        <div>2025 / 2026</div>
+        <div class="price" data-key="hajj-plus-price">ОТ 100 000 ₽</div>
+        <a href="#form-section" class="btn" data-key="btn-submit">Оставить заявку</a>
+      </div>
+      <div class="card">
+        <h3 data-key="hajj-premium">Премиум</h3>
+        <div class="city" data-key="city">Город: Москва</div>
+        <div>2025 / 2026</div>
+        <div class="price" data-key="hajj-premium-price">ОТ 150 000 ₽</div>
+        <a href="#form-section" class="btn" data-key="btn-submit">Оставить заявку</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Умра -->
+  <section id="umrah">
+    <h2 data-key="section-umrah">Умра</h2>
+    <div class="cards">
+      <div class="card">
+        <h3 data-key="umrah-standard">Стандарт</h3>
+        <div class="city" data-key="city">Город: Москва</div>
+        <div>круглый год</div>
+        <div class="price" data-key="umrah-standard-price">ОТ 25 000 ₽</div>
+        <a href="#form-section" class="btn" data-key="btn-submit">Оставить заявку</a>
+      </div>
+      <div class="card">
+        <h3 data-key="umrah-plus">Стандарт Плюс</h3>
+        <div class="city" data-key="city">Город: Москва</div>
+        <div>круглый год</div>
+        <div class="price" data-key="umrah-plus-price">ОТ 50 000 ₽</div>
+        <a href="#form-section" class="btn" data-key="btn-submit">Оставить заявку</a>
+      </div>
+      <div class="card">
+        <h3 data-key="umrah-premium">Премиум</h3>
+        <div class="city" data-key="city">Город: Москва</div>
+        <div>круглый год</div>
+        <div class="price" data-key="umrah-premium-price">ОТ 75 000 ₽</div>
+        <a href="#form-section" class="btn" data-key="btn-submit">Оставить заявку</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Форма -->
+  <section id="form-section">
+    <h2 data-key="form-title">Оставить заявку</h2>
+
+    <form id="lead-form">
+      <input type="text"   name="firstName"  placeholder="Имя"        data-ph="Имя / First name"        required>
+      <input type="text"   name="lastName"   placeholder="Фамилия"     data-ph="Фамилия / Last name"     required>
+      <input type="email"  name="email"      placeholder="Email"       data-ph="Email"                   required>
+      <input type="tel"    name="phone"      placeholder="Телефон"     data-ph="Телефон / Phone"         required>
+
+      <div class="agreement" data-key="agreement">
+        Нажимая кнопку «Отправить», я соглашаюсь с обработкой персональных данных.
+      </div>
+
+      <button type="submit" class="btn" data-key="btn-send">Отправить</button>
+    </form>
+
+    <div id="success-message" class="success-message" data-key="success">
+      Ваша заявка успешно отправлена! Мы свяжемся с Вами в ближайшее время.
+    </div>
+  </section>
+
+</main>
+
+<!-- Модальное окно с офертой -->
+<div id="offer-modal" class="modal">
+  <div class="modal-content">
+    <span class="close">×</span>
+    <h2 data-key="offer-title">Публичная оферта</h2>
+    <div id="offer-text-ru" class="offer-text">
+      <p><strong>ПУБЛИЧНАЯ ОФЕРТА</strong></p>
+      <p>Настоящий документ является публичной офертой компании DigiKey Limited (Unit 1202, 12/F., 299QRC,287-299 Queen’s Road Central,Hong Kong) (далее — «Компания») и определяет условия оказания агентских услуг по организации поездок для совершения Хаджа и Умры.</p>
+      <ol>
+        <li><strong>Предмет оферты</strong><br>Компания оказывает агентские и информационные услуги... (полный текст см. в запросе)</li>
+        <li><strong>Агентский статус</strong><br>...</li>
+        <li><strong>Ограничение ответственности</strong><br>...</li>
+        <li><strong>Обязанности клиента</strong><br>...</li>
+        <li><strong>Применимое право</strong><br>...</li>
+      </ol>
+      <p>Размещение заявки или оплата услуг означает полное и безоговорочное принятие условий настоящей оферты.</p>
+    </div>
+
+    <div id="offer-text-en" class="offer-text" style="display:none;">
+      <p><strong>PUBLIC OFFER</strong></p>
+      <p>This document constitutes a public offer of DigiKey Limited ... (полный английский текст)</p>
+      <!-- аналогично вставьте весь английский текст -->
+    </div>
+  </div>
+</div>
+
+<script>
+// =============================================================================
+//  Переключение языка
+// =============================================================================
+
+const translations = {
+  ru: {
+    "logo"                : "Агент по Хаджу и Умре",
+    "menu-hajj"           : "Совершить Хадж",
+    "menu-umrah"          : "Совершить Умру",
+    "menu-offer"          : "Публичная оферта",
+    "hero-title"          : "Поможем с организацией поездки для совершения Хаджа или Умры",
+    "hero-text"           : "Оформите заявку уже сейчас, и мы поможем спланировать вашу поездку на оптимальных условиях с учетом ваших возможностей.",
+    "hero-cta"            : "Выбрать тур",
+    "section-hajj"        : "Хадж",
+    "section-umrah"       : "Умра",
+    "hajj-standard"       : "Стандарт",
+    "hajj-plus"           : "Стандарт Плюс",
+    "hajj-premium"        : "Премиум",
+    "hajj-standard-price" : "ОТ 50 000 ₽",
+    "hajj-plus-price"     : "ОТ 100 000 ₽",
+    "hajj-premium-price"  : "ОТ 150 000 ₽",
+    "umrah-standard"      : "Стандарт",
+    "umrah-plus"          : "Стандарт Плюс",
+    "umrah-premium"       : "Премиум",
+    "umrah-standard-price": "ОТ 25 000 ₽",
+    "umrah-plus-price"    : "ОТ 50 000 ₽",
+    "umrah-premium-price" : "ОТ 75 000 ₽",
+    "city"                : "Город: Москва",
+    "btn-submit"          : "Оставить заявку",
+    "form-title"          : "Оставить заявку",
+    "agreement"           : "Нажимая кнопку «Отправить», я соглашаюсь с обработкой персональных данных.",
+    "btn-send"            : "Отправить",
+    "success"             : "Ваша заявка успешно отправлена! Мы свяжемся с Вами в ближайшее время.",
+    "offer-title"         : "Публичная оферта"
+  },
+  en: {
+    "logo"                : "Hajj & Umrah Agent",
+    "menu-hajj"           : "Perform Hajj",
+    "menu-umrah"          : "Perform Umrah",
+    "menu-offer"          : "Public Offer",
+    "hero-title"          : "We help organize your journey for Hajj or Umrah",
+    "hero-text"           : "Submit an application now, and we will help you plan your trip on optimal terms according to your capabilities.",
+    "hero-cta"            : "Choose a tour",
+    "section-hajj"        : "Hajj",
+    "section-umrah"       : "Umrah",
+    "hajj-standard"       : "Standard",
+    "hajj-plus"           : "Standard Plus",
+    "hajj-premium"        : "Premium",
+    "hajj-standard-price" : "FROM 50,000 RUB",
+    "hajj-plus-price"     : "FROM 100,000 RUB",
+    "hajj-premium-price"  : "FROM 150,000 RUB",
+    "umrah-standard"      : "Standard",
+    "umrah-plus"          : "Standard Plus",
+    "umrah-premium"       : "Premium",
+    "umrah-standard-price": "FROM 25,000 RUB",
+    "umrah-plus-price"    : "FROM 50,000 RUB",
+    "umrah-premium-price" : "FROM 75,000 RUB",
+    "city"                : "City: Moscow",
+    "btn-submit"          : "Submit application",
+    "form-title"          : "Submit application",
+    "agreement"           : "By clicking the “Submit” button, I agree to the processing of personal data.",
+    "btn-send"            : "Submit",
+    "success"             : "Your application has been successfully submitted! We will contact you shortly.",
+    "offer-title"         : "Public Offer"
+  }
+};
+
+function setLanguage(lang) {
+  document.documentElement.lang = lang;
+  document.documentElement.dataset.lang = lang;
+
+  document.querySelectorAll('[data-key]').forEach(el => {
+    const key = el.dataset.key;
+    if (translations[lang][key]) {
+      el.textContent = translations[lang][key];
+    }
+  });
+
+  // плейсхолдеры
+  document.querySelectorAll('input[data-ph]').forEach(inp => {
+    const parts = inp.getAttribute('data-ph').split(' / ');
+    inp.placeholder = (lang === 'ru') ? parts[0] : parts[1];
+  });
+
+  // оферта
+  document.getElementById('offer-text-ru').style.display = lang === 'ru' ? 'block' : 'none';
+  document.getElementById('offer-text-en').style.display = lang === 'en' ? 'block' : 'none';
+
+  // активная кнопка языка
+  document.querySelectorAll('.lang-switch button').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.lang === lang);
+  });
+}
+
+// переключатели
+document.querySelectorAll('.lang-switch button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    setLanguage(btn.dataset.lang);
+  });
+});
+
+// начальная установка
+setLanguage('ru');
+
+
+// =============================================================================
+//  Модалка оферты
+// =============================================================================
+
+const modal   = document.getElementById('offer-modal');
+const openBtn = document.getElementById('open-offer');
+const closeBtn= document.querySelector('.close');
+
+openBtn.addEventListener('click', e => {
+  e.preventDefault();
+  modal.style.display = 'flex';
+});
+
+closeBtn.addEventListener('click', () => {
+  modal.style.display = 'none';
+});
+
+modal.addEventListener('click', e => {
+  if (e.target === modal) modal.style.display = 'none';
+});
+
+
+// =============================================================================
+//  Имитация отправки формы
+// =============================================================================
+
+document.getElementById('lead-form').addEventListener('submit', e => {
+  e.preventDefault();
+  const form = e.target;
+  // здесь обычно fetch / axios на бэкенд
+
+  form.style.display = 'none';
+  document.getElementById('success-message').style.display = 'block';
+
+  setTimeout(() => {
+    form.reset();
+    form.style.display = 'grid';
+    document.getElementById('success-message').style.display = 'none';
+  }, 8000);
+});
+</script>
+</body>
+</html>
